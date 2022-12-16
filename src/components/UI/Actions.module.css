@@ -1,0 +1,14 @@
+.action {
+  position: relative;
+  right: 10px;
+}
+
+.action button {
+  cursor: pointer;
+  background-color: transparent;
+  width: auto;
+  height: auto;
+  padding: 1em;
+  margin: 1em;
+  border: transparent;
+}

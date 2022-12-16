@@ -4,6 +4,7 @@ import { Item } from './ToDoListProvider';
 const ToDoListContext = React.createContext({
     items: [] as any,
     totalAmount: 0,
+    counter: 0,
     addItem: (item: Item) => {},
     removeItem: (id: string) => {}
 })

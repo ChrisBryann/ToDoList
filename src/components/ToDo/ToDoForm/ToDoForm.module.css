@@ -1,10 +1,8 @@
 .form {
-    width: 40%;
+    width: 30%;
     margin: 2rem auto;
     padding: 5%;
     position: relative;
-    background-color: #D8CBC7;
-    border-radius: 4px;
   }
   
   .form label {
@@ -30,9 +28,9 @@
   
   .form button {
     font: inherit;
-    background-color: #C2C1C2;
-    border: 1px solid #C2C1C2;
-    color: #201d0f;
+    background-color: #218380;
+    border: 1px solid #218380;
+    color: #f7f5ef; 
     padding: 0.5rem 1.5rem;
     border-radius: 4px;
     cursor: pointer;
@@ -42,6 +40,6 @@
   .form button:hover,
   .form button:active {
     background-color: #525152;
-    color: #f7f5ef; 
+    color: #f5edd6; 
     border-color: #525152;
   }
