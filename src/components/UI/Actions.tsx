@@ -1,18 +1,23 @@
 import CheckIcon from "./Icons/CheckIcon";
 import DeleteIcon from "./Icons/DeleteIcon";
 import EditIcon from "./Icons/EditIcon";
-import classes from './Actions.module.css'
+import classes from "./Actions.module.css";
 
-const Actions: React.FC = (props) => {
+const Actions: React.FC<{
+  completeHandler: () => void;
+  deleteHandler: () => void;
+  editHandler: () => void;
+  editID: () => void;
+}> = (props) => {
   return (
     <div className={classes.action}>
-      <button>
+      <button onClick={props.completeHandler}>
         <CheckIcon />
       </button>
-      <button>
+      <button onClick={props.deleteHandler}>
         <DeleteIcon />
       </button>
-      <button>
+      <button onClick={() => {props.editHandler(); props.editID()}}>
         <EditIcon />
       </button>
     </div>

@@ -8,14 +8,16 @@ const ToDoForm: React.FC = () => {
   const dateRef = useRef<HTMLInputElement>(null);
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
-
-    console.log(descriptionRef.current?.value);
-    const date = new Date(`${dateRef.current?.value}T00:00`);
-    console.log(date);
+    
+    const date = new Date(`${dateRef.current!.value}T00:00`);
     toDoListCtx.addItem({
       desc: descriptionRef.current!.value,
-      date: `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`,
+      date: `${('0' + (date.getMonth()+1)).slice(-2)}/${('0' + date.getDate()).slice(-2)}/${date.getFullYear()}`,
+      complete: false,
     });
+
+    descriptionRef.current!.value = "";
+    dateRef.current!.value = "";
   };
 
   return (

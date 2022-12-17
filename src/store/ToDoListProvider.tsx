@@ -10,6 +10,7 @@ const defaultToDoListState = {
 export interface Item {
   desc: string;
   date: string;
+  complete: boolean;
 }
 
 interface State {
@@ -29,10 +30,7 @@ interface Action {
 const toDoListReducer = (state: State, action: Action) => {
   if (action.type === "ADD") {
     return {
-      items: [
-        ...state.items,
-        { id: state.counter, item: action.payload.item },
-      ],
+      items: [...state.items, { id: state.counter, item: action.payload.item }],
       totalAmount: state.totalAmount + 1,
       counter: state.counter + 1,
     };
@@ -44,6 +42,18 @@ const toDoListReducer = (state: State, action: Action) => {
       items: updatedItems,
       totalAmount: state.totalAmount - 1,
       counter: state.counter,
+    };
+  } else if (action.type === "COMPLETE") {
+    const idx = state.items.findIndex((item) => item.id === action.payload.id);
+    state.items[idx].item.complete = true;
+    return {
+      ...state,
+    };
+  } else if (action.type === "EDIT") {
+    const idx = state.items.findIndex((item) => item.id === action.payload.id);
+    state.items[idx].item = action.payload.item;
+    return {
+      ...state,
     };
   } else if (action.type === "CLEAR") {
     return defaultToDoListState;
@@ -73,12 +83,33 @@ const ToDoListProvider: React.FC<{ children: React.ReactNode }> = (props) => {
       },
     });
   };
+  const completeItemHandler = (id: string) => {
+    dispatchToDoList({
+      type: "COMPLETE",
+      payload: {
+        id,
+      },
+    });
+  };
+
+  const editItemHandler = (id: string, item: Item) => {
+    dispatchToDoList({
+      type: "EDIT",
+      payload: {
+        id,
+        item
+      },
+    });
+  };
+
   const toDoListContext = {
     items: toDoListState.items,
     totalAmount: toDoListState.totalAmount,
     counter: toDoListState.counter,
     addItem: addItemToListHandler,
     removeItem: removeItemFromListHandler,
+    completeItem: completeItemHandler,
+    editItem: editItemHandler,
   };
 
   return (
