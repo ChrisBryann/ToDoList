@@ -9,6 +9,7 @@ const ToDoListContext = React.createContext({
   removeItem: (id: string) => {},
   completeItem: (id: string) => {},
   editItem: (id: string, item: Item) => {},
+  postTodo: (items: any[], totalAmount: number, counter: number) => {}
 });
 
 export default ToDoListContext;

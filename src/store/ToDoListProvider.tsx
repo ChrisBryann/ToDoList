@@ -24,6 +24,9 @@ interface Action {
   payload: {
     id?: string;
     item?: Item;
+    items?: any[];
+    totalAmount?: number;
+    counter?: number;
   };
 }
 
@@ -54,6 +57,12 @@ const toDoListReducer = (state: State, action: Action) => {
     state.items[idx].item = action.payload.item;
     return {
       ...state,
+    };
+  } else if (action.type === "POST") {
+    return {
+      items: action.payload.items!,
+      totalAmount: action.payload.totalAmount!,
+      counter: action.payload.counter!,
     };
   } else if (action.type === "CLEAR") {
     return defaultToDoListState;
@@ -97,10 +106,21 @@ const ToDoListProvider: React.FC<{ children: React.ReactNode }> = (props) => {
       type: "EDIT",
       payload: {
         id,
-        item
+        item,
       },
     });
   };
+
+  const postTodoHandler = (items: any[], totalAmount: number, counter: number) => {
+    dispatchToDoList({
+      type: "POST",
+      payload: {
+        items,
+        totalAmount,
+        counter
+      }
+    })
+  }
 
   const toDoListContext = {
     items: toDoListState.items,
@@ -110,6 +130,7 @@ const ToDoListProvider: React.FC<{ children: React.ReactNode }> = (props) => {
     removeItem: removeItemFromListHandler,
     completeItem: completeItemHandler,
     editItem: editItemHandler,
+    postTodo: postTodoHandler,
   };
 
   return (
